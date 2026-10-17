@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Abrir en MadGO</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+  main { text-align: center; padding-top: 24px; }
+  .open-btn {
+    display: inline-block; margin: 8px; padding: 14px 26px; border-radius: 999px;
+    font-family: "Montserrat", sans-serif; font-weight: 800; font-size: 16px; text-decoration: none;
+  }
+  .primary { background: var(--brand); color: #fff; }
+  .secondary { background: var(--surface); color: var(--ink); border: 1px solid var(--line); }
+  .title { font-family: "Montserrat", sans-serif; font-weight: 800; font-size: 24px; margin: 10px 0; }
+  .sub { color: var(--muted); margin-bottom: 20px; }
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <a class="brand" href="index.html"><span>MadGO</span></a>
+  </div>
+</header>
+<main class="wrap">
+  <p class="title" id="title">Abriendo en MadGO…</p>
+  <p class="sub" id="sub">Si no se abre automáticamente, pulsa el botón.</p>
+  <a class="open-btn primary" id="openApp" href="#">Abrir en MadGO</a>
+  <a class="open-btn secondary" href="https://apps.apple.com/es/app/madgo/">Descargar MadGO</a>
+</main>
+<script>
+  (function () {
+    var params = new URLSearchParams(window.location.search);
+    var type = params.get("t") || "stop";
+    params.delete("t");
+    var rest = params.toString();
+    var appURL = "madgo://" + type + (rest ? "?" + rest : "");
+    var name = params.get("n");
+    if (name) {
+      document.getElementById("title").textContent = name;
+      document.getElementById("sub").textContent = "Abriendo en MadGO…";
+    }
+    var btn = document.getElementById("openApp");
+    btn.setAttribute("href", appURL);
+    setTimeout(function () { window.location = appURL; }, 200);
+  })();
+</script>
+</body>
+</html>
